@@ -19,7 +19,7 @@
         <![endif]-->
 
         <!-- Add your site or application content here -->
-        <p>Hello world! This is HTML5 Boilerplate.</p>
+        <p>Hello World! This is HTML5 Boilerplate.</p>
 
         <script src="/assets/js/build/app.min.js"></script>
 

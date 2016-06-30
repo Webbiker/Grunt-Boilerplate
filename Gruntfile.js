@@ -9,7 +9,7 @@ module.exports = function(grunt) {
       build: {
         src: [
           'assets/js/libs/jquery-1.12.0.min.js',
-          'assets/js/app.js'
+          'assets/js/*.js'
         ],
         dest: 'assets/js/build/app.min.js'
       }
@@ -41,32 +41,46 @@ module.exports = function(grunt) {
     },
 
     watch: {
-      options: {
-        livereload: true                  // Set to false if you don't have the LiveReload extension/plugin for your browser
-      },
-      html: {
-        files: ['*.html', '*.php']
-      },
       css: {
         files: ['assets/sass/*.scss', 'assets/sass/partials/*.scss'],
         tasks: ['sass', 'postcss']
       },
       scripts: {
-        files: ['assets/js/handler.js'],
-        tasks: ['uglify']
+          // options: {
+          //   livereload: true                  // Set to false if you don't have the LiveReload extension/plugin for your browser
+          // },
+          files: ['assets/js/*.js'],
+          tasks: ['uglify']
       }
-    }
+    },
 
-  });
+    browserSync: {
+        dev: {
+            bsFiles: {
+                src : [
+                    'assets/css/*.css',
+                    'assets/js/*.js',
+                    '**/*.html',
+                    '*.html',
+                    '**/*.php',
+                    '*.php'
+                ]
+            },
+            options: {
+                watchTask: true,
+                proxy: "boilerplate.webbiker.nl"
+            }
+        }
+    }
+});
 
   // Load the plugin that provides the "uglify" task.
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-postcss');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-browser-sync');
 
-  // Default task(s).
-  grunt.registerTask('default', ['sass', 'postcss', 'uglify']);
-  grunt.registerTask('auto', ['watch']);
+  grunt.registerTask('default', ['browserSync', 'watch']);
 
 };
